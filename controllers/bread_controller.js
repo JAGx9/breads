@@ -47,6 +47,26 @@ breads.get('/:arrayIndex', (req,res) => {
   }
 })
 
+//Edit
+breads.get('/:indexArray/edit', (req, res) => {
+  res.render('edit', {
+    bread: Bread[req.params.indexArray],
+    index: req.params.indexArray
+  })
+})
+
+//Update
+breads.put('/:arrayIndex', (req,res) => {
+  if(req.params.hasGluten === 'on') {
+    req.params.hasGluten =true
+  }else{
+    req.body.hasGluten = false
+  }
+  Bread[req.params.arrayIndex] = req.body
+  res.redirect(`/breads/${req.params.arrayIndex}`)
+})
+
+
 //Delete
 breads.delete('/:indexArray', (req,res) => {
   Bread.splice(req.params.indexArray, 1)
